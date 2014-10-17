@@ -49,6 +49,8 @@ def run_kmc(reads, kmers):
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
+		print kmer
+		print kmc_output
 		#reads_re = re.compile(r" -q -i (\S+) (\S+)")
 
 if __name__ == "__main__":
@@ -57,4 +59,4 @@ if __name__ == "__main__":
   
 	run_kmc(reads, kmers)
 
-	dump_kmc()
+	#dump_kmc()
