@@ -4,9 +4,6 @@
 from __future__ import division
 import sys, argparse, os
 
-import numpy as np
-import matplotlib.pyplot as plt
-
 def parse_file(infile):
 	print "\tParsing ...",
 	kmer_freq = {}
@@ -28,11 +25,11 @@ def print_freq(kmer_freq):
 	print "\tWriting freqs ...",
 	with open(kmer_file + '.freq.txt', 'w') as fh:
 		for key in sorted(kmer_freq):
-			fh.write(str(key) + "\t" + str(kmer_freq[key]))
+			fh.write(str(key) + "\t" + str(kmer_freq[key]) + "\n")
 	print "Done."
 
 if __name__ == "__main__":
 	kmer_file = sys.argv[1]
 	freq_dict = parse_file(kmer_file)
-	plot_freq(freq_dict)
+	#plot_freq(freq_dict)
 	print_freq(freq_dict) 
