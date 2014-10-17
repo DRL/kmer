@@ -59,17 +59,17 @@ def run_kmc(reads, kmers):
 		reads_total_re = re.compile(r"   Total no\. of reads               :\s+(\d+)")
 		superkmer_total_re = re.compile(r"   Total no\. of super-k-mers               :\s+(\d+)")
 
-		time = re.search(time_re, str(output)).group(1)
-		mem = re.search(mem_re, str(output)).group(1)
-		kmer_min = re.search(kmer_min_re, str(output)).group(1)
-		kmer_max = re.search(kmer_max_re, str(output)).group(1)
-		kmer_unique = re.search(kmer_unique_re, str(output)).group(1)
-		kmer_unique_counted = re.search(kmer_unique_counted_re, str(output)).group(1)
-		kmer_total = re.search(kmer_total_re, str(output)).group(1)
-		reads_total = re.search(reads_total_re, str(output)).group(1)
-		superkmer_total = re.search(superkmer_total_re, str(output)).group(1)
+		time = re.search(time_re, str(kmc_output)).group(1)
+		mem = re.search(mem_re, str(kmc_output)).group(1)
+		kmer_min = re.search(kmer_min_re, str(kmc_output)).group(1)
+		kmer_max = re.search(kmer_max_re, str(kmc_output)).group(1)
+		kmer_unique = re.search(kmer_unique_re, str(kmc_output)).group(1)
+		kmer_unique_counted = re.search(kmer_unique_counted_re, str(kmc_output)).group(1)
+		kmer_total = re.search(kmer_total_re, str(kmc_output)).group(1)
+		reads_total = re.search(reads_total_re, str(kmc_output)).group(1)
+		superkmer_total = re.search(superkmer_total_re, str(kmc_output)).group(1)
 
-		print output
+		print kmc_output
 		print time
 		print mem
 		print kmer_min
