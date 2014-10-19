@@ -29,6 +29,8 @@ def get_input():
 	args = parser.parse_args()
 
 	infiles, kmers = args.i, args.k
+	
+	read_file = ''
 
 	if len(infiles) > 1:
 		read_file = '@infile.tmp'
@@ -65,17 +67,17 @@ def run_kmc(reads, kmers):
 		time = time_re.findall(kmc_output)
 		memory = memory_re.findall(kmc_output)[0]
 
-		kmers_under_min = number[0] 
-		kmers_over_max = number[1]
-		kmers_unique = number[2]
-		kmers_unique_counted = number[3]
-		kmers_total = number[4]
-		reads_total = number[5]
-		super_kmers_total = number[6]
-		
-		time_first_stage = time[0]
-		time_second_stage = time[1]
-		time_total = time[0]
+		#kmers_under_min = number[0] 
+		#kmers_over_max = number[1]
+		#kmers_unique = number[2]
+		#kmers_unique_counted = number[3]
+		#kmers_total = number[4]
+		#reads_total = number[5]
+		#super_kmers_total = number[6]
+		#
+		#time_first_stage = time[0]
+		#time_second_stage = time[1]
+		#time_total = time[0]
 		
 		log_file.write(kmc_output)
 
