@@ -71,12 +71,13 @@ def run_kmc(reads, kmers):
 		#superkmer_total = re.match(superkmer_total_re, str(kmc_output)).group()
 
 		print kmc_output
-		print time
-		print mem
-		print kmer_min
-		print kmer_max
-		print kmer_unique
-		print kmer_unique_counted
+		print kmc_out
+		#print time
+		#print mem
+		#print kmer_min
+		#print kmer_max
+		#print kmer_unique
+		#print kmer_unique_counted
 		print kmer_total
 		print reads_total
 		print superkmer_total
