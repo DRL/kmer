@@ -49,6 +49,7 @@ def run_kmc(reads, kmers):
 	benchmark_file = open(reads + ".benchmark.txt", 'w')
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
 	for kmer in kmers: 
+		print "[k = " + kmer + "] - "
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
@@ -83,7 +84,7 @@ def run_kmc(reads, kmers):
 		
 		kmc_dump_call = 'kmc_dump ' + reads + '.' + str(kmer) + '.res' + ' ' + reads + '.' + str(kmer) + '.res.txt' 
 		kmc_dump_output = subprocess.check_output(kmc_dump_call, shell=True)
-
+		print "Done"
 	benchmark_file.close()	
 	log_file.close()
 
