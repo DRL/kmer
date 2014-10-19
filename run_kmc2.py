@@ -50,7 +50,7 @@ def run_kmc(reads, kmers):
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
 
 	for kmer in kmers: 
-		print "[k = " + str(kmer) + "] -",
+		print "[k = " + str(kmer) + "] - ",
 		kmc_out_file = reads + '.k' + str(kmer) + '.res'
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + kmc_out_file + ' .'
 		#print kmc_call
@@ -98,6 +98,8 @@ def run_kmc(reads, kmers):
 			for key in sorted(kmer_freq):
 				fh.write(str(key) + "\t" + str(kmer_freq[key]) + "\n")
 
+		print "done"
+	
 	benchmark_file.close()	
 	log_file.close()
 
