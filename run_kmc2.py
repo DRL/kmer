@@ -62,7 +62,7 @@ def run_kmc(reads, kmers):
 		time = time_re.match(kmc_output).group()
 		mem = mem_re.match(kmc_output).group()
 		kmer_min = kmer_min_re.match(kmc_output).group()
-		kmer_max = kmer_max_re.match(kmer_max_re, str(kmc_output)).group()
+		kmer_max = kmer_max_re.match(kmc_output).group()
 		kmer_unique = kmer_unique_re.match(kmc_output).group()
 		kmer_unique_counted = kmer_unique_counted_re.match(kmc_output).group()
 		kmer_total = kmer_total_re.match(kmc_output).group()
