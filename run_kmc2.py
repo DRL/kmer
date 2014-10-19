@@ -57,6 +57,10 @@ def run_kmc(reads, kmers):
 		time = time_re.findall(kmc_output)
 		memory = memory_re.findall(kmc_output)
 		print numbers
+		print time
+		print memory
+
+
 		
 
 
