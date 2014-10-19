@@ -52,7 +52,7 @@ def run_kmc(reads, kmers):
 	for kmer in kmers: 
 		print "[k = " + str(kmer) + "] -",
 		kmc_out_file = reads + '.k' + str(kmer) + '.res'
-		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
+		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + kmc_out_file + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
 		
