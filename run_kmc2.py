@@ -47,7 +47,7 @@ def run_kmc(reads, kmers):
 
 	log_file = open(reads + ".log", 'w')
 	benchmark_file = open(reads + ".benchmark.txt", 'w')
-	
+	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory")
 	for kmer in kmers: 
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
 		#print kmc_call
