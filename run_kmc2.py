@@ -79,6 +79,11 @@ def run_kmc(reads, kmers):
 		benchmark_string = str(kmer) + "," + ",".join(number) + "," + ",".join(time) + "," + ",".join(memory) + "\n"
 		benchmark_file.write(benchmark_string)
 
+		### KMC dump
+		
+		kmc_dump_call = 'kmc_dump ' + reads + '.' + str(kmer) + '.res'
+		kmc_dump_output = subprocess.check_output(kmc_dump_call, shell=True)
+		
 	benchmark_file.close()	
 	log_file.close()
 
