@@ -45,8 +45,8 @@ def get_input():
 
 def run_kmc(reads, kmers):
 
-	log_file = open(read_file + ".log", 'w')
-	benchmark_file = open(read_file + ".benchmark.txt", 'w')
+	log_file = open(reads + ".log", 'w')
+	benchmark_file = open(reads + ".benchmark.txt", 'w')
 	
 	for kmer in kmers: 
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
