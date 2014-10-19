@@ -49,7 +49,7 @@ def run_kmc(reads, kmers):
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
-		number_re = re.compile(r"\s+(\d\.\d+s)\s+|\s+(\d+\D{2})\n")
+		number_re = re.compile(r"\s+(\d\.\d+s\n)\s+|\s+(\d+\D{2})\n")
 		print kmc_output
 		numbers = number_re.findall(kmc_output)
 		print numbers
