@@ -45,24 +45,42 @@ def get_input():
 
 def run_kmc(reads, kmers):
 
+	log_file = open(read_file + ".log", 'w')
+	benchmark_file = open(read_file + ".benchmark.txt", 'w')
+	
 	for kmer in kmers: 
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
-		number_re = re.compile(r":\s+(\d+)\s+")
-		time_re = re.compile(r"\s+(\d\.\d+s)\s+")
-		memory_re = re.compile(r"\s+(\d+MB)\s+")
-		print kmc_output
-		numbers = number_re.findall(kmc_output)
-		time = time_re.findall(kmc_output)
-		memory = memory_re.findall(kmc_output)
-		print numbers
-		print time
-		print memory
-
-
 		
+		number_re = re.compile(r":\s+(\d+)\s+")
+		time_re = re.compile(r"\s+(\d\.\d+)s\s+")
+		memory_re = re.compile(r"\s+(\d+)MB\s+")
+		#print kmc_output
+		
+		number = number_re.findall(kmc_output)
+		time = time_re.findall(kmc_output)
+		memory = memory_re.findall(kmc_output)[0]
 
+		kmers_under_min = number[0] 
+		kmers_over_max = number[1]
+		kmers_unique = number[2]
+		kmers_unique_counted = number[3]
+		kmers_total = number[4]
+		reads_total = number[5]
+		super_kmers_total = number[6]
+		
+		time_first_stage = time[0]
+		time_second_stage = time[1]
+		time_total = time[0]
+		
+		log_file.write(kmc_output)
+
+		benchmark_string = str(kmer) + "," + number.join(",") + "," + time.join(",") + "," + memory.join(",") + "\n"
+		benchmark_file.write(benchmark_string)
+
+	benchmark_file.close()	
+	log_file.close()
 
 if __name__ == "__main__":
 
