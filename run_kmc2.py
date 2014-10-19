@@ -49,36 +49,11 @@ def run_kmc(reads, kmers):
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
-		time_re = re.compile(r"Total(\S+)")
-		mem_re = re.compile(r"Tmp size\s+:\s+(\S+)")
-		kmer_min_re = re.compile(r"\s+No\. of k-mers below min\. threshold\s+:\s+(\d+)")
-		kmer_max_re = re.compile(r"\s+No\. of k-mers above min\. threshold\s+:\s+(\d+)")
-		kmer_unique_re = re.compile(r"\s+No\. of unique k-mers\s+:\s+(\d+)")
-		kmer_unique_counted_re = re.compile(r"\s+No\. of unique counted k-mers\s+:\s+(\d+)")
-		kmer_total_re = re.compile(r"\s+Total no\. of k-mers\s+:\s+(\d+)")
-		reads_total_re = re.compile(r"\s+Total no\. of reads\s+:\s+(\d+)")
-		superkmer_total_re = re.compile(r"\s+Total no\. of super-k-mers\s+:\s+(\d+)")
-
-		time = time_re.match(kmc_output).group()
-		mem = mem_re.match(kmc_output).group()
-		kmer_min = kmer_min_re.match(kmc_output).group()
-		kmer_max = kmer_max_re.match(kmc_output).group()
-		kmer_unique = kmer_unique_re.match(kmc_output).group()
-		kmer_unique_counted = kmer_unique_counted_re.match(kmc_output).group()
-		kmer_total = kmer_total_re.match(kmc_output).group()
-		reads_total = reads_total_re.match(kmc_output).group()
-		superkmer_total = superkmer_total_re.match(kmc_output).group()
-
+		number_re = re.compile(r"\s+(\d\.\d+s)\s+|\s+(\d+\D)\s+")
 		print kmc_output
-		print time
-		print mem
-		print kmer_min
-		print kmer_max
-		print kmer_unique
-		print kmer_unique_counted
-		print kmer_total
-		print reads_total
-		print superkmer_total
+		numbers = number_re.findall(kmc_output)
+		print numbers
+		
 
 
 if __name__ == "__main__":
