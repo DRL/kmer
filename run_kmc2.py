@@ -40,8 +40,7 @@ def get_input():
 		read_file = infiles[0]
 	else:
 		sys.exit("ERROR: Please specify one or more FASTA/FASTQ read files")
-
-	if kmers.split(,)  
+  
 	return read_file, kmers
 
 def run_kmc(reads, kmers):
