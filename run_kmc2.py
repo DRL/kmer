@@ -58,7 +58,7 @@ def run_kmc(reads, kmers):
 		#kmer_total_re = re.compile(r"\s+Total no\. of k-mers\s+:\s+(\d+)")
 		#reads_total_re = re.compile(r"\s+Total no\. of reads\s+:\s+(\d+)")
 		#superkmer_total_re = re.compile(r"\s+Total no\. of super-k-mers\s+:\s+(\d+)")
-		number_re = re.compile('\d+|\d+\.d+')
+		number_re = re.compile('\d+\.d+|\d+')
 		kmc_out = number_re.findall(kmc_output)
 		#time = re.match(time_re, str(kmc_output)).group()
 		#mem = re.match(mem_re, str(kmc_output)).group()
