@@ -96,7 +96,7 @@ def run_kmc(reads, kmers):
 		kmer_freq_file = kmc_out_file + ".freq.txt"
 		with open(kmer_freq_file, 'w') as fh:
 			for key in sorted(kmer_freq):
-			fh.write(str(key) + "\t" + str(kmer_freq[key]) + "\n")
+				fh.write(str(key) + "\t" + str(kmer_freq[key]) + "\n")
 
 	benchmark_file.close()	
 	log_file.close()
