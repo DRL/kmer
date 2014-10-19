@@ -49,8 +49,8 @@ def run_kmc(reads, kmers):
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
-		time_re = re.compile(r"^Total\s+:\s+(\S+)")
-		mem_re = re.compile(r"^Tmp size\s+:\s+(\S+)")
+		time_re = re.compile(r"Total\s+:\s+(\S+)")
+		mem_re = re.compile(r"Tmp size\s+:\s+(\S+)")
 		kmer_min_re = re.compile(r"\s+No\. of k-mers below min\. threshold\s+:\s+(\d+)")
 		kmer_max_re = re.compile(r"\s+No\. of k-mers above min\. threshold\s+:\s+(\d+)")
 		kmer_unique_re = re.compile(r"\s+No\. of unique k-mers\s+:\s+(\d+)")
