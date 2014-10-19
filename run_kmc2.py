@@ -49,9 +49,9 @@ def run_kmc(reads, kmers):
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + reads + '.' + str(kmer) + '.res' + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
+		number_re = re.compile(r":\s+(\d+)\s+")
 		time_re = re.compile(r"\s+(\d\.\d+s)\s+")
 		memory_re = re.compile(r"\s+(\d+MB)\s+")
-		number_re = re.compile(r":\s+(\d)\s+")
 		print kmc_output
 		numbers = number_re.findall(kmc_output)
 		time = time_re.findall(kmc_output)
