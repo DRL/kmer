@@ -55,7 +55,7 @@ def run_kmc(reads, kmers):
 	kmer_count_file.write("k,")
 	for i in range(min_count, max_count):
 		kmer_count_file.write(str(i) + ",")
-  	kmer_count_file.write(str(max_count) + "\n")
+   	kmer_count_file.write(str(max_count) + "\n")
 	
 	for kmer in kmers: 
 		kmc_out_file = prefix + '.k' + str(kmer) + '.res'
@@ -69,7 +69,7 @@ def run_kmc(reads, kmers):
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
 		
 		number_re = re.compile(r":\s+(\d+)\s+")
-		time_re = re.compile(r"\s+(\d\.\d+)s\s+")
+		time_re = re.compile(r"\s+(\d+\.\d+)s\s+")
 		memory_re = re.compile(r"\s+(\d+)MB\s+")
 		#print kmc_output
 		
@@ -96,7 +96,7 @@ def run_kmc(reads, kmers):
 
 		print "Count.",
 		
-		kmc_dump_file = kmc_dump(kmc_out_file)
+		kmc_dump_file = kmc_dump(kmc_out_file, kmc_dump_file)
 		
 		print "Dump.",
 
