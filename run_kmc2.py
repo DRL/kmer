@@ -70,12 +70,12 @@ def run_kmc(reads, kmers):
 		
 		number_re = re.compile(r":\s+(\d+)\s+")
 		time_re = re.compile(r"\s+(\d+\.\d+)s\s+")
-		memory_re = re.compile(r"\s+(\d+)MB\s+")
+		memory_re = re.compile(r":\s+(\d+)MB")
 		#print kmc_output
 		
 		number = number_re.findall(kmc_output)
 		time = time_re.findall(kmc_output)
-		memory = memory_re.findall(kmc_output)[0]
+		memory = memory_re.findall(kmc_output)
 
 		#kmers_under_min = number[0] 
 		#kmers_over_max = number[1]
