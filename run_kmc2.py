@@ -22,13 +22,14 @@ def get_input():
 		add_help=True)
 	parser.add_argument('-i', metavar = 'infiles', default=[''], type = str, nargs='+', help='list of FASTQ files.')
 	parser.add_argument('-k', metavar = 'kmers' , default=[19], type = int, nargs='+', help='list of k-mers to count.') 
-	#parser.add_argument('-m', metavar = 'memory' , default=100, type = int, help='allocated memory in Gbytes.') 
+	parser.add_argument('-min', metavar = 'min' , default=2, type = int, help='Min count.') 
+	parser.add_argument('-max', metavar = 'max' , default=255, type = int, help='Max count.') 
 	#parser.add_argument('-t', metavar = 'threads' , default=16, type = int, help='number of threads.') 
 	#parser.add_argument('-dry', action='store_true' , help='Set flag for optional dry-run') # dry is for only running until end of cas parsing to output stats and then prompt to continue 
 
 	args = parser.parse_args()
 
-	infiles, kmers = args.i, args.k
+	infiles, kmers, min_count, max_count = args.i, args.k, args.min, args.max
 	
 	read_file = ''
 
@@ -43,17 +44,24 @@ def get_input():
 	else:
 		sys.exit("ERROR: Please specify one or more FASTA/FASTQ read files")
   
-	return read_file, kmers
+	return read_file, kmers, min_count, max_count
 
 def run_kmc(reads, kmers):
 
 	log_file = open(reads + ".log", 'w')
 	benchmark_file = open(reads + ".benchmark.txt", 'w')
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
-
+	kmer_count_file = open(reads + ".freq.txt", 'w')
+	kmer_count_file.write("k,")
+	kmer_count_file.write((x + ",") for range(count_min, count_max))
+	
 	for kmer in kmers: 
-		print "[k = " + str(kmer) + "]",
 		kmc_out_file = reads + '.k' + str(kmer) + '.res'
+		kmc_dump_file = kmc_out_file + ".txt"
+		#kmc_freq_file = kmc_out_file + ".freq.txt"
+
+		print "[k = " + str(kmer) + "]",
+
 		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + kmc_out_file + ' .'
 		#print kmc_call
 		kmc_output = subprocess.check_output(kmc_call, shell=True)
@@ -83,31 +91,51 @@ def run_kmc(reads, kmers):
 
 		benchmark_string = str(kmer) + "," + ",".join(number) + "," + ",".join(time) + "," + ",".join(memory) + "\n"
 		benchmark_file.write(benchmark_string)
+
 		print "Count.",
-		### KMC dump
-		kmc_dump_file = kmc_out_file + ".txt"
-		kmc_dump_call = 'kmc_dump ' + kmc_out_file + " " + kmc_dump_file 
-		kmc_dump = subprocess.check_output(kmc_dump_call, shell=True)
-		print "Dump.",
-		kmer_freq = {}
-		with open(kmc_dump_file) as fh:
-			for line in fh: 
-				count = int(line.rstrip("\n").split()[1])
-				kmer_freq[count] = kmer_freq.get(count, 0) + 1
 		
-		kmer_freq_file = kmc_out_file + ".freq.txt"
-		with open(kmer_freq_file, 'w') as fh:
-			for key in sorted(kmer_freq):
-				fh.write(str(key) + "\t" + str(kmer_freq[key]) + "\n")
+		kmc_dump_file = kmc_dump(kmc_out_file)
+		
+		print "Dump.",
+
+		kmer_freq_dict = get_kmc_dict(kmc_dump_file)
+		
+		print "Summarise.",
+		
+		write_kmc_dict(kmer_count_file, kmc_freq_dict)
+
 		print "Write."
 	
 	benchmark_file.close()	
 	log_file.close()
 
+def kmc_dump(kmc_out_file, kmc_dump_file):
+	### KMC dump
+	kmc_dump_call = 'kmc_dump ' + kmc_out_file + " " + kmc_dump_file 
+	kmc_dump = subprocess.check_output(kmc_dump_call, shell=True)
+	return kmc_dump_file
+
+def get_kmc_dict(kmc_dump_file):
+	kmer_freq = {}
+	with open(kmc_dump_file) as fh:
+		for line in fh: 
+			count = int(line.rstrip("\n").split()[1])
+			kmer_freq[count] = kmer_freq.get(count, 0) + 1
+	return kmer_freq
+
+def write_kmc_dict(kmer_count_file, kmc_freq_dict):
+	with open(kmer_count_file, 'w') as fh:
+		fh.write(str(key)
+		for i in range(min_count, max_count):
+			fh.write(kmer_freq_dict.get(i, 0) + ",")
+		fh.write("\n")
+
+
+
 if __name__ == "__main__":
 
-	reads, kmers = get_input()
-  
+	reads, kmers, min_count, max_count = get_input()
+  	# min, max multiplicity
 	run_kmc(reads, kmers)
 
 	#dump_kmc()
