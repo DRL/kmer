@@ -106,7 +106,7 @@ def run_kmc(reads, kmers):
 		
 		kmer_count_file.write("k" + str(kmer) + ",")
 		for i in range(min_count, max_count):
-			kmer_count_file.write(kmer_freq_dict.get(i, 0) + ",")
+			kmer_count_file.write(str(kmer_freq_dict.get(i, 0)) + ",")
 		kmer_count_file.write("\n")
 
 		print "Write."
