@@ -47,18 +47,18 @@ def get_input():
 	return read_file, kmers, min_count, max_count
 
 def run_kmc(reads, kmers):
-
-	log_file = open(reads + ".log", 'w')
-	benchmark_file = open(reads + ".benchmark.txt", 'w')
+	prefix = reads.lstrip("@")
+	log_file = open(prefix + ".log", 'w')
+	benchmark_file = open(prefix + ".benchmark.txt", 'w')
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
-	kmer_count_file = open(reads + ".freq.txt", 'w')
+	kmer_count_file = open(prefix + ".freq.txt", 'w')
 	kmer_count_file.write("k,")
 	for i in range(min_count, max_count):
 		kmer_count_file.write(str(i) + ",")
-  	kmer_count_file.write("\n")
+  	kmer_count_file.write(str(max_count) + "\n")
 	
 	for kmer in kmers: 
-		kmc_out_file = reads + '.k' + str(kmer) + '.res'
+		kmc_out_file = prefix + '.k' + str(kmer) + '.res'
 		kmc_dump_file = kmc_out_file + ".txt"
 		#kmc_freq_file = kmc_out_file + ".freq.txt"
 
