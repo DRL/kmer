@@ -91,7 +91,7 @@ def run_kmc(reads, kmers):
 		
 		log_file.write(kmc_output)
 
-		benchmark_string = str(kmer) + "," + ",".join(number) + "," + ",".join(time) + "," + ",".join(memory) + "\n"
+		benchmark_string = "k" + str(kmer) + "," + ",".join(number) + "," + ",".join(time) + "," + ",".join(memory) + "\n"
 		benchmark_file.write(benchmark_string)
 
 		print "Count.",
