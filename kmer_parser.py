@@ -3,16 +3,30 @@
 
 from __future__ import division
 import sys, argparse, os
+import matplotlib.pyplot as plt
 
 def parse_file(infile):
 	print "\tParsing ...",
-	kmer_freq = {}
+	plt.ylim(ymax = 10000, ymin = 1)
+	plt.xlim(xmax = 255, xmin = 5)
+	plt.axes(axisbg=background_grey, yscale = 'log')
+	x = []
+	y = []
+	k = ''
+	
 	with open(infile) as fh:
 		for line in fh: 
-			count = int(line.rstrip("\n").split()[1])
-			kmer_freq[count] = kmer_freq.get(count, 0) + 1
-	print "Done."
-	return kmer_freq
+			temp = line.rstrip("\n").split(",")
+			if x == []:
+				x = map(int, temp[1:])
+			else:
+				k = temp[0]
+				y = map(int, temp[1:])
+			if not y == []:
+				plt.plot(x, y, label=k, marker = 'o', ms = 1)
+				plt.legend()
+				plt.savefig(infile + "." + str(k) + ".png", format="png")
+	plt.show()
 
 def plot_freq(kmer_freq):
 	print "\tPlotting ...",
@@ -29,7 +43,8 @@ def print_freq(kmer_freq):
 	print "Done."
 
 if __name__ == "__main__":
+	black, grey, background_grey, white = '#262626', '#d3d3d3', '#F0F0F5', '#ffffff'
 	kmer_file = sys.argv[1]
 	freq_dict = parse_file(kmer_file)
 	#plot_freq(freq_dict)
-	print_freq(freq_dict) 
+	#print_freq(freq_dict) 
