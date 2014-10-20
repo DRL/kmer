@@ -55,7 +55,7 @@ def run_kmc(reads, kmers):
 	kmer_count_file.write("k,")
 	for i in range(min_count, max_count):
 		kmer_count_file.write(str(i) + ",")
-   	kmer_count_file.write(str(max_count) + "\n")
+   	kmer_count_file.write("\n")
 	
 	for kmer in kmers: 
 		kmc_out_file = prefix + '.k' + str(kmer) + '.res'
@@ -77,18 +77,6 @@ def run_kmc(reads, kmers):
 		time = time_re.findall(kmc_output)
 		memory = memory_re.findall(kmc_output)
 
-		#kmers_under_min = number[0] 
-		#kmers_over_max = number[1]
-		#kmers_unique = number[2]
-		#kmers_unique_counted = number[3]
-		#kmers_total = number[4]
-		#reads_total = number[5]
-		#super_kmers_total = number[6]
-		#
-		#time_first_stage = time[0]
-		#time_second_stage = time[1]
-		#time_total = time[0]
-		
 		log_file.write(kmc_output)
 
 		benchmark_string = "k" + str(kmer) + "," + ",".join(number) + "," + ",".join(time) + "," + ",".join(memory) + "\n"
@@ -97,16 +85,12 @@ def run_kmc(reads, kmers):
 		print "Count.",
 		
 		kmc_dump(kmc_out_file, kmc_dump_file)
-		
-		print "Dump.",
 
 		kmer_freq_dict = get_kmc_dict(kmc_dump_file)
 		
-		print "Summarise.",
-		
-		kmer_count_file.write("k" + str(kmer) + ",")
+		kmer_count_file.write("k" + str(kmer))
 		for i in range(min_count, max_count):
-			kmer_count_file.write(str(kmer_freq_dict.get(i, 0)) + ",")
+			kmer_count_file.write("," + str(kmer_freq_dict.get(i, 0)))
 		kmer_count_file.write("\n")
 
 		print "Write."
@@ -119,6 +103,7 @@ def kmc_dump(kmc_out_file, kmc_dump_file):
 	### KMC dump
 	kmc_dump_call = 'kmc_dump ' + kmc_out_file + " " + kmc_dump_file 
 	kmc_dump = subprocess.check_output(kmc_dump_call, shell=True)
+	print "Dump.",
 
 def get_kmc_dict(kmc_dump_file):
 	kmer_freq = {}
@@ -126,6 +111,7 @@ def get_kmc_dict(kmc_dump_file):
 		for line in fh: 
 			count = int(line.rstrip("\n").split()[1])
 			kmer_freq[count] = kmer_freq.get(count, 0) + 1
+	print "Summarise.",
 	return kmer_freq
 
 if __name__ == "__main__":
