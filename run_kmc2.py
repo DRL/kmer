@@ -119,7 +119,6 @@ def kmc_dump(kmc_out_file, kmc_dump_file):
 	### KMC dump
 	kmc_dump_call = 'kmc_dump ' + kmc_out_file + " " + kmc_dump_file 
 	kmc_dump = subprocess.check_output(kmc_dump_call, shell=True)
-	return kmc_dump_file
 
 def get_kmc_dict(kmc_dump_file):
 	kmer_freq = {}
