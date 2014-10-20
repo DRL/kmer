@@ -126,11 +126,10 @@ def get_kmc_dict(kmc_dump_file):
 	return kmer_freq
 
 def write_kmc_dict(kmer_count_file, kmc_freq_dict):
-	with open(kmer_count_file, 'w') as fh:
-		fh.write(str(key))
-		for i in range(min_count, max_count):
-			fh.write(kmer_freq_dict.get(i, 0) + ",")
-		fh.write("\n")
+	fh.write(str(key))
+	for i in range(min_count, max_count):
+		fh.write(kmer_freq_dict.get(i, 0) + ",")
+	fh.write("\n")
 
 
 
