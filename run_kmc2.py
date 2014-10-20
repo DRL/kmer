@@ -104,7 +104,10 @@ def run_kmc(reads, kmers):
 		
 		print "Summarise.",
 		
-		write_kmc_dict(kmer_count_file, kmc_freq_dict)
+		kmer_count_file.write(str(key))
+		for i in range(min_count, max_count):
+			kmer_count_file.write(kmer_freq_dict.get(i, 0) + ",")
+		kmer_count_file.write("\n")
 
 		print "Write."
 	
@@ -124,13 +127,6 @@ def get_kmc_dict(kmc_dump_file):
 			count = int(line.rstrip("\n").split()[1])
 			kmer_freq[count] = kmer_freq.get(count, 0) + 1
 	return kmer_freq
-
-def write_kmc_dict(kmer_count_file, kmc_freq_dict):
-	fh.write(str(key))
-	for i in range(min_count, max_count):
-		fh.write(kmer_freq_dict.get(i, 0) + ",")
-	fh.write("\n")
-
 
 
 if __name__ == "__main__":
