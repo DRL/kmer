@@ -100,7 +100,7 @@ def run_kmc(reads, kmers):
 		
 		print "Dump.",
 
-		kmc_freq_dict = get_kmc_dict(kmc_dump_file)
+		kmer_freq_dict = get_kmc_dict(kmc_dump_file)
 		
 		print "Summarise.",
 		
