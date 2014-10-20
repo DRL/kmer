@@ -87,7 +87,7 @@ def run_kmc(reads, kmers):
 		### KMC dump
 		kmc_dump_file = kmc_out_file + ".txt"
 		kmc_dump_call = 'kmc_dump ' + kmc_out_file + " " + kmc_dump_file 
-		kmc_dump_output = subprocess.check_output(kmc_dump_call, shell=True)
+		kmc_dump = subprocess.check_output(kmc_dump_call, shell=True)
 		print "Dump.",
 		kmer_freq = {}
 		with open(kmc_dump_file) as fh:
