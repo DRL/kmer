@@ -53,7 +53,9 @@ def run_kmc(reads, kmers):
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
 	kmer_count_file = open(reads + ".freq.txt", 'w')
 	kmer_count_file.write("k,")
-	kmer_count_file.write((x + ",") for range(count_min, count_max))
+	for i in range(count_min, count_max):
+		kmer_count_file.write(str(i) + ",")
+	kmer_count_file.write("\n")
 	
 	for kmer in kmers: 
 		kmc_out_file = reads + '.k' + str(kmer) + '.res'
