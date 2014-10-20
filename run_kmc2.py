@@ -104,8 +104,7 @@ def run_kmc(reads, kmers):
 		
 		print "Summarise.",
 		
-		kmer_count_file.write(str(key))
-
+		kmer_count_file.write("k" + str(kmer) + ",")
 		for i in range(min_count, max_count):
 			kmer_count_file.write(kmer_freq_dict.get(i, 0) + ",")
 		kmer_count_file.write("\n")
@@ -114,6 +113,7 @@ def run_kmc(reads, kmers):
 	
 	benchmark_file.close()	
 	log_file.close()
+	kmer_count_file.close()
 
 def kmc_dump(kmc_out_file, kmc_dump_file):
 	### KMC dump
