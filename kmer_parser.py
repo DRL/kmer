@@ -7,9 +7,11 @@ import matplotlib.pyplot as plt
 
 def parse_file(infile):
 	print "\tParsing ...",
-	plt.ylim(ymax = 10000, ymin = 1)
-	plt.xlim(xmax = 255, xmin = 5)
+	plt.axes(axisbg=background_grey)
+	plt.ylim(ymax = 10000000, ymin = 10)
+	plt.xlim(xmax = 75, xmin = 2)
 	plt.axes(axisbg=background_grey, yscale = 'log')
+	
 	x = []
 	y = []
 	k = ''
