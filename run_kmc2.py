@@ -37,6 +37,10 @@ def get_input():
 	
 	read_file = ''
 
+	if not (out):
+		sys.exit("ERROR: Please specify an output prefix")
+
+	
 	if len(infiles) > 1:
   		read_file = 'infile.tmp'
 		in_fh = open(read_file, 'w') 
