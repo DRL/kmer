@@ -59,14 +59,15 @@ def run_kmc(reads, kmers):
 		kmer_count_file.write(str(i) + ",")
    	kmer_count_file.write("\n")
 	
+	if reads == 'infile.tmp': 
+		reads == '@infile.tmp'
+
 	for kmer in kmers: 
 		kmc_out_file = prefix + '.k' + str(kmer) + '.res'
 		kmc_dump_file = kmc_out_file + ".txt"
 		#kmc_freq_file = kmc_out_file + ".freq.txt"
 
 		print "[k = " + str(kmer) + "]",
-		if reads == 'infile.tmp': 
-			reads == '@infile.tmp'
 		if fasta_flag:
 			kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' -fa ' + reads + ' ' + kmc_out_file + ' .'
 			print kmc_call
