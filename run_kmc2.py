@@ -20,7 +20,9 @@ def get_input():
 		prog='run_kmc2.py',
 		usage = '%(prog)s -i -k [-h]',
 		add_help=True)
-	parser.add_argument('-i', metavar = 'infiles', default=[''], type = str, nargs='+', help='list of FASTQ files.')
+	parser.add_argument('-i', metavar = 'infiles', default=[''], type = str, nargs='+', help='list of files.')
+	parser.add_argument('-fq', action='store_true', help='FASTQ flag.')
+	parser.add_argument('-fa', action='store_true', help='FASTA flag.')
 	parser.add_argument('-k', metavar = 'kmers' , default=[19], type = int, nargs='+', help='list of k-mers to count.') 
 	parser.add_argument('-min', metavar = 'min' , default=2, type = int, help='Min count.') 
 	parser.add_argument('-max', metavar = 'max' , default=255, type = int, help='Max count.') 
