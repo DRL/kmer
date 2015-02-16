@@ -40,7 +40,7 @@ def get_input():
 	if not (out):
 		sys.exit("ERROR: Please specify an output prefix")
 
-	
+
 	if len(infiles) > 1:
   		read_file = 'infile.tmp'
 		in_fh = open(read_file, 'w') 
@@ -104,9 +104,10 @@ def run_kmc(reads, kmers):
 
 		kmer_freq_dict = get_kmc_dict(kmc_dump_file)
 		
-		kmer_count_file.write("k" + str(kmer))
+		kmer_count_file.write("#k" + str(kmer)+ "\n")
+		
 		for i in range(min_count, max_count):
-			kmer_count_file.write("," + str(kmer_freq_dict.get(i, 0)))
+			kmer_count_file.write(str(i) + "," + str(kmer_freq_dict.get(i, 0)) + "\n")
 		kmer_count_file.write("\n")
 
 		print "Write."
