@@ -69,9 +69,11 @@ def run_kmc(reads, kmers):
 			reads == '@infile.tmp'
 		if fasta_flag:
 			kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' -fa ' + reads + ' ' + kmc_out_file + ' .'
+			print kmc_call
 			kmc_output = subprocess.check_output(kmc_call, shell=True)
 		else:
 			kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + kmc_out_file + ' .'
+			print kmc_call
 			kmc_output = subprocess.check_output(kmc_call, shell=True)
 		#print kmc_call
 		
