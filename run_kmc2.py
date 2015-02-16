@@ -31,7 +31,7 @@ def get_input():
 
 	args = parser.parse_args()
 
-	infiles, kmers, min_count, max_count = args.i, args.k, args.min, args.max
+	infiles, kmers, min_count, max_count, fasta_flag = args.i, args.k, args.min, args.max, args.fa
 	
 	read_file = ''
 
@@ -46,7 +46,7 @@ def get_input():
 	else:
 		sys.exit("ERROR: Please specify one or more FASTA/FASTQ read files")
   
-	return read_file, kmers, min_count, max_count
+	return read_file, kmers, min_count, max_count, fasta_flag
 
 def run_kmc(reads, kmers):
 	prefix = reads.lstrip("@")
@@ -65,10 +65,13 @@ def run_kmc(reads, kmers):
 		#kmc_freq_file = kmc_out_file + ".freq.txt"
 
 		print "[k = " + str(kmer) + "]",
-
-		kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + kmc_out_file + ' .'
+		if fasta_flag:
+			kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' -fa ' + reads + ' ' + kmc_out_file + ' .'
+			kmc_output = subprocess.check_output(kmc_call, shell=True)
+		else:
+			kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' ' + reads + ' ' + kmc_out_file + ' .'
+			kmc_output = subprocess.check_output(kmc_call, shell=True)
 		#print kmc_call
-		kmc_output = subprocess.check_output(kmc_call, shell=True)
 		
 		number_re = re.compile(r":\s+(\d+)\s+")
 		time_re = re.compile(r"\s+(\d+\.\d+)s\s+")
@@ -118,7 +121,7 @@ def get_kmc_dict(kmc_dump_file):
 
 if __name__ == "__main__":
 
-	reads, kmers, min_count, max_count = get_input()
+	reads, kmers, min_count, max_count, fasta_flag = get_input()
   	# min, max multiplicity
 	run_kmc(reads, kmers)
 

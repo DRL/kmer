@@ -48,5 +48,5 @@ if __name__ == "__main__":
 	black, grey, background_grey, white = '#262626', '#d3d3d3', '#F0F0F5', '#ffffff'
 	kmer_file = sys.argv[1]
 	freq_dict = parse_file(kmer_file)
-	#plot_freq(freq_dict)
-	#print_freq(freq_dict) 
+	plot_freq(freq_dict)
+	print_freq(freq_dict) 
