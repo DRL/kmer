@@ -26,17 +26,19 @@ def get_input():
 	parser.add_argument('-k', metavar = 'kmers' , default=[19], type = int, nargs='+', help='list of k-mers to count.') 
 	parser.add_argument('-min', metavar = 'min' , default=2, type = int, help='Min count.') 
 	parser.add_argument('-max', metavar = 'max' , default=255, type = int, help='Max count.') 
+	parser.add_argument('-o', metavar = 'out' , default='', type = str, help='output prefix.') 
+
 	#parser.add_argument('-t', metavar = 'threads' , default=16, type = int, help='number of threads.') 
 	#parser.add_argument('-dry', action='store_true' , help='Set flag for optional dry-run') # dry is for only running until end of cas parsing to output stats and then prompt to continue 
 
 	args = parser.parse_args()
 
-	infiles, kmers, min_count, max_count, fasta_flag = args.i, args.k, args.min, args.max, args.fa
+	infiles, kmers, min_count, max_count, fasta_flag, out = args.i, args.k, args.min, args.max, args.fa, args.o
 	
 	read_file = ''
 
 	if len(infiles) > 1:
-		read_file = 'infile.tmp'
+  		read_file = 'infile.tmp'
 		in_fh = open(read_file, 'w') 
 		for infile in infiles:
 			in_fh.write(infile + '\n')
@@ -46,10 +48,10 @@ def get_input():
 	else:
 		sys.exit("ERROR: Please specify one or more FASTA/FASTQ read files")
   
-	return read_file, kmers, min_count, max_count, fasta_flag
+	return read_file, kmers, min_count, max_count, fasta_flag, out
 
 def run_kmc(reads, kmers):
-	prefix = reads
+	prefix = out + "." + reads
 	log_file = open(prefix + ".log", 'w')
 	benchmark_file = open(prefix + ".benchmark.txt", 'w')
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
@@ -126,7 +128,7 @@ def get_kmc_dict(kmc_dump_file):
 
 if __name__ == "__main__":
 
-	reads, kmers, min_count, max_count, fasta_flag = get_input()
+	reads, kmers, min_count, max_count, fasta_flag, out = get_input()
   	# min, max multiplicity
 	run_kmc(reads, kmers)
 
