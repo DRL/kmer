@@ -60,7 +60,7 @@ def run_kmc(reads, kmers):
    	kmer_count_file.write("\n")
 	
 	if reads == 'infile.tmp': 
-		reads == '@infile.tmp'
+		reads = '@infile.tmp'
 
 	for kmer in kmers: 
 		kmc_out_file = prefix + '.k' + str(kmer) + '.res'
