@@ -60,10 +60,10 @@ def run_kmc(reads, kmers):
 	benchmark_file = open(prefix + ".benchmark.txt", 'w')
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
 	kmer_count_file = open(prefix + ".freq.txt", 'w')
-	kmer_count_file.write("k,")
-	for i in range(min_count, max_count):
-		kmer_count_file.write(str(i) + ",")
-   	kmer_count_file.write("\n")
+	#kmer_count_file.write("k,")
+	#for i in range(min_count, max_count):
+	#	kmer_count_file.write(str(i) + ",")
+   	#kmer_count_file.write("\n")
 	
 	if reads == 'infile.tmp': 
 		reads = '@infile.tmp'
