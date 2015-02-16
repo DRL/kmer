@@ -36,7 +36,7 @@ def get_input():
 	read_file = ''
 
 	if len(infiles) > 1:
-		read_file = '@infile.tmp'
+		read_file = 'infile.tmp'
 		in_fh = open(read_file, 'w') 
 		for infile in infiles:
 			in_fh.write(infile + '\n')
@@ -49,7 +49,7 @@ def get_input():
 	return read_file, kmers, min_count, max_count, fasta_flag
 
 def run_kmc(reads, kmers):
-	prefix = reads.lstrip("@")
+	prefix = reads
 	log_file = open(prefix + ".log", 'w')
 	benchmark_file = open(prefix + ".benchmark.txt", 'w')
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
@@ -65,6 +65,8 @@ def run_kmc(reads, kmers):
 		#kmc_freq_file = kmc_out_file + ".freq.txt"
 
 		print "[k = " + str(kmer) + "]",
+		if reads == 'infile.tmp': 
+			reads == '@infile.tmp'
 		if fasta_flag:
 			kmc_call = 'kmc -m100 -t24 -k' + str(kmer) + ' -fa ' + reads + ' ' + kmc_out_file + ' .'
 			kmc_output = subprocess.check_output(kmc_call, shell=True)
