@@ -59,7 +59,7 @@ def run_kmc(reads, kmers):
 	log_file = open(prefix + ".log", 'w')
 	benchmark_file = open(prefix + ".benchmark.txt", 'w')
 	benchmark_file.write("k,kmers-under-min,kmers-over-max,unique-kmers,unique-kmers-counted,total-kmers,total-reads,total-superkmers,time_1,time_2,total_time,memory\n")
-	kmer_count_file = open(prefix + ".freq.txt", 'w')
+	#kmer_count_file = open(prefix + ".freq.txt", 'w')
 	#kmer_count_file.write("k,")
 	#for i in range(min_count, max_count):
 	#	kmer_count_file.write(str(i) + ",")
@@ -69,8 +69,10 @@ def run_kmc(reads, kmers):
 		reads = '@infile.tmp'
 
 	for kmer in kmers: 
+
 		kmc_out_file = prefix + '.k' + str(kmer) + '.res'
 		kmc_dump_file = kmc_out_file + ".txt"
+		kmer_count_file = open(kmc_out_file + ".freq.txt", 'w')
 		#kmc_freq_file = kmc_out_file + ".freq.txt"
 
 		print "[k = " + str(kmer) + "]",
@@ -111,10 +113,10 @@ def run_kmc(reads, kmers):
 		kmer_count_file.write("\n")
 
 		print "Write."
+		kmer_count_file.close()
 	
 	benchmark_file.close()	
 	log_file.close()
-	kmer_count_file.close()
 
 def kmc_dump(kmc_out_file, kmc_dump_file):
 	### KMC dump
